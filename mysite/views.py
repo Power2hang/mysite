@@ -42,3 +42,8 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
+
+# 消息中心
+def my_notifications(request):
+    context = {}
+    return render(request, 'my_notifications.html', context)

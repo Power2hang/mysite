@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.http import JsonResponse
-
 from .models import Comment
 from .forms import CommentForm
+
 
 def submit_comment(request):
     referer = request.META.get('HTTP_REFERER', reverse('home'))
@@ -17,7 +17,6 @@ def submit_comment(request):
         comment.user = comment_form.cleaned_data['user']
         comment.text = comment_form.cleaned_data['text']
         comment.content_object = comment_form.cleaned_data['content_object']
-        comment.save()
 
         parent = comment_form.cleaned_data['parent']
         if not parent is None:
@@ -25,9 +24,6 @@ def submit_comment(request):
             comment.parent = parent
             comment.reply_to = parent.user
         comment.save()
-
-        # 发送邮件通知
-        comment.send_mail()
 
         # 返回数据
         data['status'] = 'SUCCESS'
