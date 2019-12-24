@@ -29,7 +29,8 @@ urlpatterns = [
     path('likes/', include('likes.urls')),
     path('user/', include('user.urls')),
     path('notifications/', include('notifications.urls', namespace='notifications')),
-    path('my_notifications/', views.my_notifications, name='my_notifications'),
+    path('my_notifications/', include('my_notifications.urls')),
+    path('search/', views.search, name='search'),
 ]
 
 # 上传的图片是到media中，不是在static中，还需设置media可被访问
